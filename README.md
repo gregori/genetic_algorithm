@@ -5,8 +5,10 @@ Gustavo Bosco e Igor Tomasi.
 Itens:
 
 Saco de dormir 
-Peso : 15 
-Pontos : 15
+
+Peso := 15 
+
+Pontos := 15
 
 Corda
 Peso : 3
