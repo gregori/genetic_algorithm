@@ -7,7 +7,15 @@ def cal_pop_fitness(equation_inputs, pop):
     # Cálculo do ‘fitness’ de cada solução na população atual
     # A função ‘fitness’ calcula a soma dos produtos entre cada
     # entrada e seu peso correspondente
-    return np.sum(pop * equation_inputs, axis=1)
+
+    
+    soma = np.sum(pop * equation_inputs, axis=1)
+
+    if soma > 30 :
+        soma *= -9999999
+
+
+    return soma
 
 
 def select_mating_pool(pop, fitness, num_parents):
