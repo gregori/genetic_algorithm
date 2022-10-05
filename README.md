@@ -5,28 +5,28 @@ Gustavo Bosco e Igor Tomasi.
 Itens:
 
 Saco de dormir 
-=: Peso: 15 
-=: Pontos 15
+Peso : 15 
+Pontos : 15
 
 Corda
-=: Peso: 3
-=: Pontos: 10
+Peso : 3
+Pontos : 10
 
 Canivete
-=: Peso: 2
-=: Pontos: 10
+Peso : 2
+Pontos : 10
 
 Tocha
-=: Peso: 5
-=: Pontos: 5
+Peso : 5
+Pontos : 5
 
 Garrafa
-=: Peso: 9
-=: Pontos: 8
+Peso : 9
+Pontos : 8
 
 Comida
-=: Peso: 20
-=: Pontos: 17
+Peso : 20
+Pontos : 17
 
 Dica 1: Você basicamente precisará alterar a função cal_pop_fitness - aqui você deverá calcular a soma dos pontos de cada cromossomo. E eliminar as pontuações cujos pesos sejam MAIORES que 30kg (para isso, você pode fazer com que a pontuação seja um número negativo bem pequeno, como -9999999, nesses casos).
 
