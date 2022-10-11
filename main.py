@@ -1,21 +1,28 @@
 import numpy as np
 import ga
 
+from bag import Bag
+
 
 def main():
-    # entradas da equação
-    equation_inputs = [4, -2, 3.5, 5, -11, -4.7]
-    # número de pesos a otimizar
-    num_weights = 6
 
+    saco_de_dormir = Bag('Saco de dormir', 15, 15)
+    corda = Bag('Corda', 3, 10)
+    canivete = Bag('Canivete', 2, 10)
+    tocha = Bag('Tocha', 5, 5)
+    garrafa = Bag('Garrafa', 9, 8)
+    comida = Bag('Comida', 20, 17)
+
+    itens = [saco_de_dormir, corda, canivete, tocha, garrafa, comida]
+
+    num_weights = 6
     sol_per_pop = 8
 
     # população tem sol_per_pop cromossomos com num_weights gens
     pop_size = (sol_per_pop, num_weights)
 
     # População inicial
-    new_population = np.random.uniform(low=-4.0, high=4.0, size=pop_size)
-
+    new_population = np.random.randint(2, size=pop_size)
     # Algoritmo genético
     num_generations = 100
     num_parents_mating = 4
@@ -24,7 +31,7 @@ def main():
         print(f"Geração: {generation}")
 
         # medir o ‘fitness’ de cada cromossomo na população
-        fitness = ga.cal_pop_fitness(equation_inputs, new_population)
+        fitness = ga.cal_pop_fitness(itens, new_population)
 
         print("Valores de fitness:")
         print(fitness)
@@ -32,7 +39,7 @@ def main():
         # Selecionar os melhores pais na população para o cruzamento
         parents = ga.select_mating_pool(new_population, fitness, num_parents_mating)
 
-        print("Genitores selecionados:")
+        print("Genitores selecionados(pais):")
         print(parents)
 
         # formar a próxima geração usando crossover
@@ -51,14 +58,21 @@ def main():
         new_population[0:parents.shape[0], :] = parents
         new_population[parents.shape[0]:, :] = offspring_mutation
 
-        best_result = np.max(np.sum(new_population*equation_inputs, axis=1))
-        print(f"Melhor resultado depois da geração {generation}: {best_result}")
+        # best_result = np.max(np.sum(new_population*equation_inputs, axis=1))
+        # print(f"Melhor resultado depois da geração {generation}: {best_result}")
 
-    fitness = ga.cal_pop_fitness(equation_inputs, new_population)
-    best_match_idx = np.where(fitness == np.max(fitness))
+    fitness = ga.cal_pop_fitness(itens, new_population)
+    best_match_idx = np.where(fitness == np.max(fitness))[0][0]
 
     print("Melhor solução: ", new_population[best_match_idx, :])
     print("Fitness da melhor solução: ", fitness[best_match_idx])
+    printar_nome_itens_selecionados(best_match_idx, itens, new_population)
+
+
+def printar_nome_itens_selecionados(best_match_idx, itens, new_population):
+    for idx, item in enumerate(itens):
+        if new_population[best_match_idx, idx] == 1:
+            print(item.nome)
 
 
 if __name__ == '__main__':
