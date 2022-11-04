@@ -1,2 +1,2 @@
 # genetic_algorithm
-Aluna: Maria Luiza Bacca
+Alunas: Maria Luiza Bacca e Gabriela Borowiak
