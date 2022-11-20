@@ -1,15 +1,36 @@
+from ast import List
 import sys
-
 import numpy as np
+from mochilaItens import mochilaItens
 
 
-def cal_pop_fitness(equation_inputs, pop):
+def cal_pop_fitness(itensMochila: List[mochilaItens], pop):
     # Cálculo do ‘fitness’ de cada solução na população atual
     # A função ‘fitness’ calcula a soma dos produtos entre cada
     # entrada e seu peso correspondente
-    return np.sum(pop * equation_inputs, axis=1)
+    points = get_points(itensMochila)
+    weight = get_weight(itensMochila)
+
+    totalsPoints = np.sum(pop * points, axis=1)
+    totalsWeight = np.sum(pop * weight, axis=1)
+
+    result = []
+
+    for idx, points in enumerate(totalsPoints):
+        if totalsWeight[idx] > 30:
+            points = 0
+
+        result.append(points)
+
+    return result
 
 
+def get_points(itensMochila: List[mochilaItens]):
+    return [item.points for item in itensMochila]
+
+
+def get_weight(itensMochila: List[mochilaItens]):
+    return [item.weight for item in itensMochila]
 def select_mating_pool(pop, fitness, num_parents):
     # Selecionar os melhores indivíduos na geração atual
     # para seren pais para cruzamento
@@ -52,7 +73,7 @@ def mutation(offspring_crossover, mutation_rate=0.3):
         if np.random.random() < mutation_rate:
             # O valor aleatório a ser adicionado
             random_idx = np.random.randint(0, offspring_crossover.shape[1])
-            random_value = np.random.uniform(-1.0, 1.0, 1)
+            random_value = np.random.randint(2)
             offspring_crossover[idx, random_idx] = offspring_crossover[idx, random_idx] + random_value
 
     return offspring_crossover
